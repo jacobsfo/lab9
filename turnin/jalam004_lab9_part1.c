@@ -13,58 +13,71 @@
 #include "freq.h"
 #endif
 enum States{ Start, Off, Press } state;
-void Ex1(){
 unsigned char tmpA = 0x00;
-//enum States{ Off, Press } state;
-tmpA = ~PINA & 0x01;
-switch(state)
-{
-case Start:
-state = Off;
-case Off:
-if((tmpA == 0x00) || (tmpA == 0x03) || (tmpA == 0x05) || (tmpA == 0x06) )
-state = Off;
-else {state = Press;}
-break;
-case Press:
-if((tmpA == 0x01) ||( tmpA == 0x02) || (tmpA = 0x04) )
-state = Press;
-else {state = Off;}
-break;
-}
+//PWM_on();
 
-switch(state)
+void Ex1()
 {
-case Start:
-break;
-case Off:
-set_PWM(0);
-break;
-case Press:
-if(tmpA == 0x01)
-set_PWM(261.63);
-if(tmpA == 0x02)
-set_PWM(293.66);
-if(tmpA == 0x04)
-set_PWM(329.63);
-break;
-}
+//unsigned char tmpA = 0x00;
+//enum States{ Off, Press } state;
+	tmpA = ~PINA & 0x01;
+	switch(state)
+	{
+//tmpA = ~PINA & 0x01;
+
+	case Start:
+	state = Off;
+	case Off:
+	if((tmpA = 0x00) || (tmpA == 0x03) || (tmpA == 0x05) || (tmpA == 0x06) )
+	state = Off;
+	else {state = Press;}
+	break;
+	case Press:
+	if((tmpA == 0x01) ||( tmpA == 0x02) || (tmpA = 0x04) )
+	state = Press;
+	else {state = Off;}
+	break;
+	}
+
+	switch(state)
+	{
+	case Start:
+	break;
+	case Off:
+	set_PWM(0);
+//PWM_on();
+	break;
+	case Press:
+	if(tmpA == 0x01)
+	set_PWM(261.63);
+//PWM_on();
+	
+	if(tmpA == 0x02)
+	set_PWM(293.66);
+//PWM_on();
+	if(tmpA == 0x04)
+	set_PWM(329.63);
+//PWM_on();
+	break;
+	}
 
 
 }
 int main(void) {
     /* Insert DDR and PORT initializations */
 DDRA = 0x00; PORTA = 0xFF;
-DDRB = 0x40; PORTB = 0x00;
+DDRB = 0xFF; PORTB = 0x00;
  state = Start;
-   /* Insert your solution below */
+// PWM_off();
+ PWM_on();
+ /* Insert your solution below */
 //unsigned char tmpA = 0x00;
 //tmpA = ~PINA & 0x01;
     while (1) {
-PWM_on();
+//PWM_on();
 //state = Start;
 Ex1();
-
+//PWM_on();
     }
     return 1;
 }
