@@ -18,6 +18,7 @@ unsigned char tmpA = 0x00;
 
 void Ex1()
 {
+PWM_on();
 //unsigned char tmpA = 0x00;
 //enum States{ Off, Press } state;
 	tmpA = ~PINA & 0x01;
@@ -28,12 +29,12 @@ void Ex1()
 	case Start:
 	state = Off;
 	case Off:
-	if((tmpA = 0x00) || (tmpA == 0x03) || (tmpA == 0x05) || (tmpA == 0x06) )
+	if((tmpA == 0x00) || (tmpA == 0x03) || (tmpA == 0x05) || (tmpA == 0x06) )
 	state = Off;
 	else {state = Press;}
 	break;
 	case Press:
-	if((tmpA == 0x01) ||( tmpA == 0x02) || (tmpA = 0x04) )
+	if((tmpA == 0x01) ||( tmpA == 0x02) || (tmpA == 0x04) )
 	state = Press;
 	else {state = Off;}
 	break;
@@ -69,7 +70,7 @@ DDRA = 0x00; PORTA = 0xFF;
 DDRB = 0xFF; PORTB = 0x00;
  state = Start;
 // PWM_off();
- PWM_on();
+// PWM_on();
  /* Insert your solution below */
 //unsigned char tmpA = 0x00;
 //tmpA = ~PINA & 0x01;
@@ -77,7 +78,7 @@ DDRB = 0xFF; PORTB = 0x00;
 //PWM_on();
 //state = Start;
 Ex1();
-//PWM_on();
+PWM_off();
     }
     return 1;
 }
